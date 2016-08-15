@@ -129,7 +129,7 @@ class Stream implements StreamInterface
      *
      * @return bool
      */
-    protected function isAttached()
+    protected function isAttached() : bool
     {
         return is_resource($this->stream);
     }
@@ -191,7 +191,7 @@ class Stream implements StreamInterface
      * @see http://php.net/manual/en/language.oop5.magic.php#object.tostring
      * @return string
      */
-    public function __toString()
+    public function __toString() : string
     {
         if (!$this->isAttached()) {
             return '';
@@ -243,7 +243,7 @@ class Stream implements StreamInterface
      *
      * @throws RuntimeException on error.
      */
-    public function tell()
+    public function tell() : int
     {
         if (!$this->isAttached() || ($position = ftell($this->stream)) === false || $this->isPipe()) {
             throw new RuntimeException('Could not get the position of the pointer in stream');
@@ -257,7 +257,7 @@ class Stream implements StreamInterface
      *
      * @return bool
      */
-    public function eof()
+    public function eof() : bool
     {
         return $this->isAttached() ? feof($this->stream) : true;
     }
@@ -267,7 +267,7 @@ class Stream implements StreamInterface
      *
      * @return bool
      */
-    public function isReadable()
+    public function isReadable() : bool
     {
         if ($this->readable === null) {
             if ($this->isPipe()) {
@@ -294,7 +294,7 @@ class Stream implements StreamInterface
      *
      * @return bool
      */
-    public function isWritable()
+    public function isWritable() : bool
     {
         if ($this->writable === null) {
             $this->writable = false;
@@ -317,7 +317,7 @@ class Stream implements StreamInterface
      *
      * @return bool
      */
-    public function isSeekable()
+    public function isSeekable() : bool
     {
         if ($this->seekable === null) {
             $this->seekable = false;
@@ -383,7 +383,7 @@ class Stream implements StreamInterface
      *
      * @throws RuntimeException if an error occurs.
      */
-    public function read($length)
+    public function read($length) : string
     {
         if (!$this->isReadable() || ($data = fread($this->stream, $length)) === false) {
             throw new RuntimeException('Could not read from stream');
@@ -401,7 +401,7 @@ class Stream implements StreamInterface
      *
      * @throws RuntimeException on failure.
      */
-    public function write($string)
+    public function write($string) : int
     {
         if (!$this->isWritable() || ($written = fwrite($this->stream, $string)) === false) {
             throw new RuntimeException('Could not write to stream');
@@ -421,7 +421,7 @@ class Stream implements StreamInterface
      * @throws RuntimeException if unable to read or an error occurs while
      *     reading.
      */
-    public function getContents()
+    public function getContents() : string
     {
         if (!$this->isReadable() || ($contents = stream_get_contents($this->stream)) === false) {
             throw new RuntimeException('Could not get contents of stream');
@@ -435,7 +435,7 @@ class Stream implements StreamInterface
      *
      * @return bool
      */
-    public function isPipe()
+    public function isPipe() : bool
     {
         if ($this->isPipe === null) {
             $this->isPipe = false;

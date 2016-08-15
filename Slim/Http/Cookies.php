@@ -97,7 +97,7 @@ class Cookies implements CookiesInterface
      *
      * @return string[]
      */
-    public function toHeaders()
+    public function toHeaders() : array
     {
         $headers = [];
         foreach ($this->responseCookies as $name => $properties) {
@@ -115,7 +115,7 @@ class Cookies implements CookiesInterface
      *
      * @return string
      */
-    protected function toHeader($name, array $properties)
+    protected function toHeader($name, array $properties) : string
     {
         $result = urlencode($name) . '=' . urlencode($properties['value']);
 
@@ -163,7 +163,7 @@ class Cookies implements CookiesInterface
      *
      * @throws InvalidArgumentException if the cookie data cannot be parsed
      */
-    public static function parseHeader($header)
+    public static function parseHeader($header) : array
     {
         if (is_array($header) === true) {
             $header = isset($header[0]) ? $header[0] : '';

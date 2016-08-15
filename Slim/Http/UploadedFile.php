@@ -99,7 +99,7 @@ class UploadedFile implements UploadedFileInterface
      *
      * @return array A normalized tree of UploadedFile instances.
      */
-    private static function parseUploadedFiles(array $uploadedFiles)
+    private static function parseUploadedFiles(array $uploadedFiles) : array
     {
         $parsed = [];
         foreach ($uploadedFiles as $field => $uploadedFile) {
@@ -174,7 +174,7 @@ class UploadedFile implements UploadedFileInterface
      * @throws \RuntimeException in cases when no stream is available or can be
      *     created.
      */
-    public function getStream()
+    public function getStream() : StreamInterface
     {
         if ($this->moved) {
             throw new \RuntimeException(sprintf('Uploaded file %1s has already been moved', $this->name));

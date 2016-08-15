@@ -150,7 +150,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return int Status code.
      */
-    public function getStatusCode()
+    public function getStatusCode() : int
     {
         return $this->status;
     }
@@ -175,7 +175,7 @@ class Response extends Message implements ResponseInterface
      * @return self
      * @throws \InvalidArgumentException For invalid status code arguments.
      */
-    public function withStatus($code, $reasonPhrase = '')
+    public function withStatus($code, $reasonPhrase = '') : Response
     {
         $code = $this->filterStatus($code);
 
@@ -205,7 +205,7 @@ class Response extends Message implements ResponseInterface
      * @return int
      * @throws \InvalidArgumentException If an invalid HTTP status code is provided.
      */
-    protected function filterStatus($status)
+    protected function filterStatus($status) : int
     {
         if (!is_integer($status) || $status<100 || $status>599) {
             throw new InvalidArgumentException('Invalid HTTP status code');
@@ -227,7 +227,7 @@ class Response extends Message implements ResponseInterface
      * @link http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
      * @return string Reason phrase; must return an empty string if none present.
      */
-    public function getReasonPhrase()
+    public function getReasonPhrase() : string
     {
         if ($this->reasonPhrase) {
             return $this->reasonPhrase;
@@ -252,7 +252,7 @@ class Response extends Message implements ResponseInterface
      * @param string $data
      * @return self
      */
-    public function write($data)
+    public function write($data) : Response
     {
         $this->getBody()->write($data);
 
@@ -275,7 +275,7 @@ class Response extends Message implements ResponseInterface
      * @param  int|null            $status The redirect HTTP status code.
      * @return self
      */
-    public function withRedirect($url, $status = null)
+    public function withRedirect($url, $status = null) : Response
     {
         $responseWithRedirect = $this->withHeader('Location', (string)$url);
 
@@ -304,7 +304,7 @@ class Response extends Message implements ResponseInterface
      * @throws \RuntimeException
      * @return self
      */
-    public function withJson($data, $status = null, $encodingOptions = 0)
+    public function withJson($data, $status = null, $encodingOptions = 0) : Response
     {
         $body = $this->getBody();
         $body->rewind();
@@ -329,7 +329,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isEmpty()
+    public function isEmpty() : bool
     {
         return in_array($this->getStatusCode(), [204, 205, 304]);
     }
@@ -341,7 +341,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isInformational()
+    public function isInformational() : bool
     {
         return $this->getStatusCode() >= 100 && $this->getStatusCode() < 200;
     }
@@ -353,7 +353,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isOk()
+    public function isOk() : bool
     {
         return $this->getStatusCode() === 200;
     }
@@ -365,7 +365,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isSuccessful()
+    public function isSuccessful() : bool
     {
         return $this->getStatusCode() >= 200 && $this->getStatusCode() < 300;
     }
@@ -377,7 +377,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isRedirect()
+    public function isRedirect() : bool
     {
         return in_array($this->getStatusCode(), [301, 302, 303, 307]);
     }
@@ -389,7 +389,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isRedirection()
+    public function isRedirection() : bool
     {
         return $this->getStatusCode() >= 300 && $this->getStatusCode() < 400;
     }
@@ -402,7 +402,7 @@ class Response extends Message implements ResponseInterface
      * @return bool
      * @api
      */
-    public function isForbidden()
+    public function isForbidden() : bool
     {
         return $this->getStatusCode() === 403;
     }
@@ -414,7 +414,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isNotFound()
+    public function isNotFound() : bool
     {
         return $this->getStatusCode() === 404;
     }
@@ -426,7 +426,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isClientError()
+    public function isClientError() : bool
     {
         return $this->getStatusCode() >= 400 && $this->getStatusCode() < 500;
     }
@@ -438,7 +438,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isServerError()
+    public function isServerError() : bool
     {
         return $this->getStatusCode() >= 500 && $this->getStatusCode() < 600;
     }
@@ -450,7 +450,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return string
      */
-    public function __toString()
+    public function __toString() : string
     {
         $output = sprintf(
             'HTTP/%s %s %s',

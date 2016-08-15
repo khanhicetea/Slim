@@ -31,7 +31,7 @@ class NotAllowed extends AbstractHandler
      * @return ResponseInterface
      * @throws UnexpectedValueException
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $methods)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $methods) : ResponseInterface
     {
         if ($request->getMethod() === 'OPTIONS') {
             $status = 200;
@@ -75,7 +75,7 @@ class NotAllowed extends AbstractHandler
      * @param  array                  $methods
      * @return string
      */
-    protected function renderPlainNotAllowedMessage($methods)
+    protected function renderPlainNotAllowedMessage($methods) : string
     {
         $allow = implode(', ', $methods);
 
@@ -88,7 +88,7 @@ class NotAllowed extends AbstractHandler
      * @param  array                  $methods
      * @return string
      */
-    protected function renderJsonNotAllowedMessage($methods)
+    protected function renderJsonNotAllowedMessage($methods) : string
     {
         $allow = implode(', ', $methods);
 
@@ -101,7 +101,7 @@ class NotAllowed extends AbstractHandler
      * @param  array                  $methods
      * @return string
      */
-    protected function renderXmlNotAllowedMessage($methods)
+    protected function renderXmlNotAllowedMessage($methods) : string
     {
         $allow = implode(', ', $methods);
 
@@ -114,7 +114,7 @@ class NotAllowed extends AbstractHandler
      * @param  array                  $methods
      * @return string
      */
-    protected function renderHtmlNotAllowedMessage($methods)
+    protected function renderHtmlNotAllowedMessage($methods) : string
     {
         $allow = implode(', ', $methods);
         $output = <<<END

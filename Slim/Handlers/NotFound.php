@@ -30,7 +30,7 @@ class NotFound extends AbstractHandler
      * @return ResponseInterface
      * @throws UnexpectedValueException
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         $contentType = $this->determineContentType($request);
         switch ($contentType) {
@@ -64,7 +64,7 @@ class NotFound extends AbstractHandler
      *
      * @return ResponseInterface
      */
-    protected function renderJsonNotFoundOutput()
+    protected function renderJsonNotFoundOutput() : string
     {
         return '{"message":"Not found"}';
     }
@@ -74,7 +74,7 @@ class NotFound extends AbstractHandler
      *
      * @return ResponseInterface
      */
-    protected function renderXmlNotFoundOutput()
+    protected function renderXmlNotFoundOutput() : string
     {
         return '<root><message>Not found</message></root>';
     }
@@ -86,7 +86,7 @@ class NotFound extends AbstractHandler
      *
      * @return ResponseInterface
      */
-    protected function renderHtmlNotFoundOutput(ServerRequestInterface $request)
+    protected function renderHtmlNotFoundOutput(ServerRequestInterface $request) : string
     {
         $homeUrl = (string)($request->getUri()->withPath('')->withQuery('')->withFragment(''));
         return <<<END
