@@ -270,7 +270,7 @@ class UploadedFile implements UploadedFileInterface
      *
      * @return int One of PHP's UPLOAD_ERR_XXX constants.
      */
-    public function getError()
+    public function getError() : int
     {
         return $this->error;
     }

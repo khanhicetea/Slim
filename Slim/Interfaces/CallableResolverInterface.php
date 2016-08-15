@@ -23,5 +23,5 @@ interface CallableResolverInterface
      *
      * @return callable
      */
-    public function resolve($toResolve);
+    public function resolve($toResolve) : callable;
 }

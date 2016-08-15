@@ -175,7 +175,7 @@ class Response extends Message implements ResponseInterface
      * @return self
      * @throws \InvalidArgumentException For invalid status code arguments.
      */
-    public function withStatus($code, $reasonPhrase = '') : Response
+    public function withStatus($code, $reasonPhrase = '') : self
     {
         $code = $this->filterStatus($code);
 
@@ -252,7 +252,7 @@ class Response extends Message implements ResponseInterface
      * @param string $data
      * @return self
      */
-    public function write($data) : Response
+    public function write($data) : self
     {
         $this->getBody()->write($data);
 
@@ -275,7 +275,7 @@ class Response extends Message implements ResponseInterface
      * @param  int|null            $status The redirect HTTP status code.
      * @return self
      */
-    public function withRedirect($url, $status = null) : Response
+    public function withRedirect($url, $status = null) : self
     {
         $responseWithRedirect = $this->withHeader('Location', (string)$url);
 
@@ -304,7 +304,7 @@ class Response extends Message implements ResponseInterface
      * @throws \RuntimeException
      * @return self
      */
-    public function withJson($data, $status = null, $encodingOptions = 0) : Response
+    public function withJson($data, $status = null, $encodingOptions = 0) : self
     {
         $body = $this->getBody();
         $body->rewind();

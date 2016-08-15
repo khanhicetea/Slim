@@ -95,7 +95,7 @@ abstract class Message implements MessageInterface
      * @return static
      * @throws InvalidArgumentException if the http version is an invalid number
      */
-    public function withProtocolVersion($version) : Message
+    public function withProtocolVersion($version) : self
     {
         if (!isset(self::$validProtocolVersions[$version])) {
             throw new InvalidArgumentException(
@@ -214,7 +214,7 @@ abstract class Message implements MessageInterface
      * @return static
      * @throws \InvalidArgumentException for invalid header names or values.
      */
-    public function withHeader($name, $value) : Message
+    public function withHeader($name, $value) : self
     {
         $clone = clone $this;
         $clone->headers->set($name, $value);
@@ -238,7 +238,7 @@ abstract class Message implements MessageInterface
      * @return static
      * @throws \InvalidArgumentException for invalid header names or values.
      */
-    public function withAddedHeader($name, $value) : Message
+    public function withAddedHeader($name, $value) : self
     {
         $clone = clone $this;
         $clone->headers->add($name, $value);
@@ -258,7 +258,7 @@ abstract class Message implements MessageInterface
      * @param string $name Case-insensitive header field name to remove.
      * @return static
      */
-    public function withoutHeader($name) : Message
+    public function withoutHeader($name) : self
     {
         $clone = clone $this;
         $clone->headers->remove($name);
@@ -293,7 +293,7 @@ abstract class Message implements MessageInterface
      * @return static
      * @throws \InvalidArgumentException When the body is not valid.
      */
-    public function withBody(StreamInterface $body) : Message
+    public function withBody(StreamInterface $body) : self
     {
         // TODO: Test for invalid body?
         $clone = clone $this;

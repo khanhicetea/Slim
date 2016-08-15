@@ -22,9 +22,9 @@ interface CollectionInterface extends \ArrayAccess, \Countable, \IteratorAggrega
 
     public function replace(array $items);
 
-    public function all();
+    public function all() : array;
 
-    public function has($key);
+    public function has($key) : bool;
 
     public function remove($key);
 

@@ -48,7 +48,7 @@ class Headers extends Collection implements HeadersInterface
      *
      * @return self
      */
-    public static function createFromEnvironment(Environment $environment) : Headers
+    public static function createFromEnvironment(Environment $environment) : self
     {
         $data = [];
         $environment = self::determineAuthorization($environment);

@@ -133,7 +133,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return self
      */
-    public static function createFromEnvironment(Environment $environment) : Request
+    public static function createFromEnvironment(Environment $environment) : self
     {
         $method = $environment['REQUEST_METHOD'];
         $uri = Uri::createFromEnvironment($environment);
@@ -292,7 +292,7 @@ class Request extends Message implements ServerRequestInterface
      * @return self
      * @throws \InvalidArgumentException for invalid HTTP methods.
      */
-    public function withMethod($method) : Request
+    public function withMethod($method) : self
     {
         $method = $this->filterMethod($method);
         $clone = clone $this;
@@ -503,7 +503,7 @@ class Request extends Message implements ServerRequestInterface
      * @return self
      * @throws InvalidArgumentException if the request target is invalid
      */
-    public function withRequestTarget($requestTarget) : Request
+    public function withRequestTarget($requestTarget) : self
     {
         if (preg_match('#\s#', $requestTarget)) {
             throw new InvalidArgumentException(
@@ -560,7 +560,7 @@ class Request extends Message implements ServerRequestInterface
      * @param bool $preserveHost Preserve the original state of the Host header.
      * @return self
      */
-    public function withUri(UriInterface $uri, $preserveHost = false) : Request
+    public function withUri(UriInterface $uri, $preserveHost = false) : self
     {
         $clone = clone $this;
         $clone->uri = $uri;
@@ -722,7 +722,7 @@ class Request extends Message implements ServerRequestInterface
      * @param array $cookies Array of key/value pairs representing cookies.
      * @return self
      */
-    public function withCookieParams(array $cookies) : Request
+    public function withCookieParams(array $cookies) : self
     {
         $clone = clone $this;
         $clone->cookies = $cookies;
@@ -783,7 +783,7 @@ class Request extends Message implements ServerRequestInterface
      *     $_GET.
      * @return self
      */
-    public function withQueryParams(array $query) : Request
+    public function withQueryParams(array $query) : self
     {
         $clone = clone $this;
         $clone->queryParams = $query;
@@ -920,7 +920,7 @@ class Request extends Message implements ServerRequestInterface
      * @param mixed $value The value of the attribute.
      * @return self
      */
-    public function withAttribute($name, $value) : Request
+    public function withAttribute($name, $value) : self
     {
         $clone = clone $this;
         $clone->attributes->set($name, $value);
@@ -943,7 +943,7 @@ class Request extends Message implements ServerRequestInterface
      * @param  array $attributes New attributes
      * @return self
      */
-    public function withAttributes(array $attributes) : Request
+    public function withAttributes(array $attributes) : self
     {
         $clone = clone $this;
         $clone->attributes = new Collection($attributes);
@@ -965,7 +965,7 @@ class Request extends Message implements ServerRequestInterface
      * @param string $name The attribute name.
      * @return self
      */
-    public function withoutAttribute($name) : Request
+    public function withoutAttribute($name) : self
     {
         $clone = clone $this;
         $clone->attributes->remove($name);
@@ -1074,7 +1074,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return self
      */
-    public function reparseBody() : Request
+    public function reparseBody() : self
     {
         $this->bodyParsed = false;
 
