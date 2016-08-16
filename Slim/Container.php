@@ -142,7 +142,7 @@ class Container extends PimpleContainer implements ContainerInterface
      *
      * @return bool
      */
-    private function exceptionThrownByContainer(\InvalidArgumentException $exception)
+    private function exceptionThrownByContainer(\InvalidArgumentException $exception) : bool
     {
         $trace = $exception->getTrace()[0];
 
@@ -157,7 +157,7 @@ class Container extends PimpleContainer implements ContainerInterface
      *
      * @return boolean
      */
-    public function has($id)
+    public function has($id) : bool
     {
         return $this->offsetExists($id);
     }

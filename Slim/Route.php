@@ -115,7 +115,7 @@ class Route extends Routable implements RouteInterface
      *
      * @return callable
      */
-    public function getCallable()
+    public function getCallable() : callable
     {
         return $this->callable;
     }
@@ -125,7 +125,7 @@ class Route extends Routable implements RouteInterface
      *
      * @return string[]
      */
-    public function getMethods()
+    public function getMethods() : array
     {
         return $this->methods;
     }
@@ -135,7 +135,7 @@ class Route extends Routable implements RouteInterface
      *
      * @return RouteGroup[]
      */
-    public function getGroups()
+    public function getGroups() : array
     {
         return $this->groups;
     }
@@ -155,7 +155,7 @@ class Route extends Routable implements RouteInterface
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier() : string
     {
         return $this->identifier;
     }
@@ -196,7 +196,7 @@ class Route extends Routable implements RouteInterface
      *
      * @throws InvalidArgumentException if the route name is not a string
      */
-    public function setName($name)
+    public function setName($name) : self
     {
         if (!is_string($name)) {
             throw new InvalidArgumentException('Route name must be a string');
@@ -213,7 +213,7 @@ class Route extends Routable implements RouteInterface
      *
      * @return self
      */
-    public function setArgument($name, $value)
+    public function setArgument($name, $value) : self
     {
         $this->arguments[$name] = $value;
         return $this;
@@ -226,7 +226,7 @@ class Route extends Routable implements RouteInterface
      *
      * @return self
      */
-    public function setArguments(array $arguments)
+    public function setArguments(array $arguments) : self
     {
         $this->arguments = $arguments;
         return $this;
@@ -237,7 +237,7 @@ class Route extends Routable implements RouteInterface
      *
      * @return array
      */
-    public function getArguments()
+    public function getArguments() : array
     {
         return $this->arguments;
     }
@@ -288,7 +288,7 @@ class Route extends Routable implements RouteInterface
      *
      * @return ResponseInterface
      */
-    public function run(ServerRequestInterface $request, ResponseInterface $response)
+    public function run(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         // Finalise route now that we are about to run it
         $this->finalize();
@@ -309,7 +309,7 @@ class Route extends Routable implements RouteInterface
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \Exception  if the route callable throws an exception
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         $this->callable = $this->resolveCallable($this->callable);
 

@@ -43,7 +43,7 @@ class DefaultServicesProvider
              *
              * @return EnvironmentInterface
              */
-            $container['environment'] = function () {
+            $container['environment'] = function () : EnvironmentInterface {
                 return new Environment($_SERVER);
             };
         }
@@ -56,7 +56,7 @@ class DefaultServicesProvider
              *
              * @return ServerRequestInterface
              */
-            $container['request'] = function ($container) {
+            $container['request'] = function ($container) : ServerRequestInterface {
                 return Request::createFromEnvironment($container->get('environment'));
             };
         }
@@ -69,7 +69,7 @@ class DefaultServicesProvider
              *
              * @return ResponseInterface
              */
-            $container['response'] = function ($container) {
+            $container['response'] = function ($container) : ResponseInterface {
                 $headers = new Headers(['Content-Type' => 'text/html; charset=UTF-8']);
                 $response = new Response(200, $headers);
 
@@ -86,7 +86,7 @@ class DefaultServicesProvider
              *
              * @return RouterInterface
              */
-            $container['router'] = function ($container) {
+            $container['router'] = function ($container) : RouterInterface {
                 $routerCacheFile = false;
                 if (isset($container->get('settings')['routerCacheFile'])) {
                     $routerCacheFile = $container->get('settings')['routerCacheFile'];
@@ -103,7 +103,7 @@ class DefaultServicesProvider
              *
              * @return InvocationStrategyInterface
              */
-            $container['foundHandler'] = function () {
+            $container['foundHandler'] = function () : InvocationStrategyInterface {
                 return new RequestResponse;
             };
         }
@@ -124,7 +124,7 @@ class DefaultServicesProvider
              *
              * @return callable
              */
-            $container['phpErrorHandler'] = function ($container) {
+            $container['phpErrorHandler'] = function ($container) : callable {
                 return new PhpError($container->get('settings')['displayErrorDetails']);
             };
         }
@@ -145,7 +145,7 @@ class DefaultServicesProvider
              *
              * @return callable
              */
-            $container['errorHandler'] = function ($container) {
+            $container['errorHandler'] = function ($container) : callable {
                 return new Error($container->get('settings')['displayErrorDetails']);
             };
         }
@@ -163,7 +163,7 @@ class DefaultServicesProvider
              *
              * @return callable
              */
-            $container['notFoundHandler'] = function () {
+            $container['notFoundHandler'] = function () : callable {
                 return new NotFound;
             };
         }
@@ -182,7 +182,7 @@ class DefaultServicesProvider
              *
              * @return callable
              */
-            $container['notAllowedHandler'] = function () {
+            $container['notAllowedHandler'] = function () : callable {
                 return new NotAllowed;
             };
         }
@@ -195,7 +195,7 @@ class DefaultServicesProvider
              *
              * @return CallableResolverInterface
              */
-            $container['callableResolver'] = function ($container) {
+            $container['callableResolver'] = function ($container) : CallableResolverInterface {
                 return new CallableResolver($container);
             };
         }

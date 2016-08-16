@@ -90,7 +90,7 @@ class App
      *
      * @return ContainerInterface
      */
-    public function getContainer()
+    public function getContainer() : ContainerInterface
     {
         return $this->container;
     }
@@ -104,7 +104,7 @@ class App
      *
      * @return static
      */
-    public function add($callable)
+    public function add($callable) : self
     {
         return $this->addMiddleware(new DeferredCallable($callable, $this->container));
     }
@@ -141,7 +141,7 @@ class App
      *
      * @return \Slim\Interfaces\RouteInterface
      */
-    public function get($pattern, $callable)
+    public function get($pattern, $callable) : RouteInterface
     {
         return $this->map(['GET'], $pattern, $callable);
     }
@@ -154,7 +154,7 @@ class App
      *
      * @return \Slim\Interfaces\RouteInterface
      */
-    public function post($pattern, $callable)
+    public function post($pattern, $callable) : RouteInterface
     {
         return $this->map(['POST'], $pattern, $callable);
     }
@@ -167,7 +167,7 @@ class App
      *
      * @return \Slim\Interfaces\RouteInterface
      */
-    public function put($pattern, $callable)
+    public function put($pattern, $callable) : RouteInterface
     {
         return $this->map(['PUT'], $pattern, $callable);
     }
@@ -180,7 +180,7 @@ class App
      *
      * @return \Slim\Interfaces\RouteInterface
      */
-    public function patch($pattern, $callable)
+    public function patch($pattern, $callable) : RouteInterface
     {
         return $this->map(['PATCH'], $pattern, $callable);
     }
@@ -193,7 +193,7 @@ class App
      *
      * @return \Slim\Interfaces\RouteInterface
      */
-    public function delete($pattern, $callable)
+    public function delete($pattern, $callable) : RouteInterface
     {
         return $this->map(['DELETE'], $pattern, $callable);
     }
@@ -206,7 +206,7 @@ class App
      *
      * @return \Slim\Interfaces\RouteInterface
      */
-    public function options($pattern, $callable)
+    public function options($pattern, $callable) : RouteInterface
     {
         return $this->map(['OPTIONS'], $pattern, $callable);
     }
@@ -219,7 +219,7 @@ class App
      *
      * @return \Slim\Interfaces\RouteInterface
      */
-    public function any($pattern, $callable)
+    public function any($pattern, $callable) : RouteInterface
     {
         return $this->map(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], $pattern, $callable);
     }
@@ -233,7 +233,7 @@ class App
      *
      * @return RouteInterface
      */
-    public function map(array $methods, $pattern, $callable)
+    public function map(array $methods, $pattern, $callable) : RouteInterface
     {
         if ($callable instanceof Closure) {
             $callable = $callable->bindTo($this->container);
@@ -263,7 +263,7 @@ class App
      *
      * @return RouteGroupInterface
      */
-    public function group($pattern, $callable)
+    public function group($pattern, $callable) : RouteGroupInterface
     {
         /** @var RouteGroup $group */
         $group = $this->container->get('router')->pushGroup($pattern, $callable);
@@ -290,7 +290,7 @@ class App
      * @throws MethodNotAllowedException
      * @throws NotFoundException
      */
-    public function run($silent = false)
+    public function run($silent = false) : ResponseInterface
     {
         $request = $this->container->get('request');
         $response = $this->container->get('response');
@@ -318,7 +318,7 @@ class App
      * @throws MethodNotAllowedException
      * @throws NotFoundException
      */
-    public function process(ServerRequestInterface $request, ResponseInterface $response)
+    public function process(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         // Ensure basePath is set
         $router = $this->container->get('router');
@@ -424,7 +424,7 @@ class App
      * @throws MethodNotAllowedException
      * @throws NotFoundException
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         // Get the route info
         $routeInfo = $request->getAttribute('routeInfo');
@@ -484,7 +484,7 @@ class App
         array $cookies = [],
         $bodyContent = '',
         ResponseInterface $response = null
-    ) {
+    ) : ResponseInterface {
         $env = $this->container->get('environment');
         $uri = Uri::createFromEnvironment($env)->withPath($path)->withQuery($query);
         $headers = new Headers($headers);
@@ -508,7 +508,7 @@ class App
      * @param RouterInterface        $router
      * @return ServerRequestInterface
      */
-    protected function dispatchRouterAndPrepareRoute(ServerRequestInterface $request, RouterInterface $router)
+    protected function dispatchRouterAndPrepareRoute(ServerRequestInterface $request, RouterInterface $router) : ServerRequestInterface
     {
         $routeInfo = $router->dispatch($request);
 
@@ -536,7 +536,7 @@ class App
      * @param ResponseInterface $response
      * @return ResponseInterface
      */
-    protected function finalize(ResponseInterface $response)
+    protected function finalize(ResponseInterface $response) : ResponseInterface
     {
         // stop PHP sending a Content-Type automatically
         ini_set('default_mimetype', '');
@@ -570,7 +570,7 @@ class App
      * @param ResponseInterface $response
      * @return bool
      */
-    protected function isEmptyResponse(ResponseInterface $response)
+    protected function isEmptyResponse(ResponseInterface $response) : bool
     {
         if (method_exists($response, 'isEmpty')) {
             return $response->isEmpty();
@@ -590,7 +590,7 @@ class App
      * @return ResponseInterface
      * @throws Exception if a handler is needed and not found
      */
-    protected function handleException(Exception $e, ServerRequestInterface $request, ResponseInterface $response)
+    protected function handleException(Exception $e, ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         if ($e instanceof MethodNotAllowedException) {
             $handler = 'notAllowedHandler';
@@ -627,7 +627,7 @@ class App
      * @return ResponseInterface
      * @throws Throwable
      */
-    protected function handlePhpError(Throwable $e, ServerRequestInterface $request, ResponseInterface $response)
+    protected function handlePhpError(Throwable $e, ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         $handler = 'phpErrorHandler';
         $params = [$request, $response, $e];

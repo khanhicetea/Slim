@@ -44,7 +44,7 @@ final class CallableResolver implements CallableResolverInterface
      * @throws RuntimeException if the callable does not exist
      * @throws RuntimeException if the callable is not resolvable
      */
-    public function resolve($toResolve)
+    public function resolve($toResolve) : callable
     {
         $resolved = $toResolve;
 

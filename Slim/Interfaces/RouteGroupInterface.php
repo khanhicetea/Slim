@@ -23,7 +23,7 @@ interface RouteGroupInterface
      *
      * @return string
      */
-    public function getPattern();
+    public function getPattern() : string;
 
     /**
      * Prepend middleware to the group middleware collection

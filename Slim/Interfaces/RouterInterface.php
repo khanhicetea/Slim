@@ -40,7 +40,7 @@ interface RouterInterface
      *
      * @link   https://github.com/nikic/FastRoute/blob/master/src/Dispatcher.php
      */
-    public function dispatch(ServerRequestInterface $request);
+    public function dispatch(ServerRequestInterface $request) : array;
 
     /**
      * Add a route group to the array
@@ -89,7 +89,7 @@ interface RouterInterface
      * @throws RuntimeException         If named route does not exist
      * @throws InvalidArgumentException If required data not provided
      */
-    public function relativePathFor($name, array $data = [], array $queryParams = []);
+    public function relativePathFor($name, array $data = [], array $queryParams = []) : string;
 
     /**
      * Build the path for a named route including the base path
@@ -103,5 +103,5 @@ interface RouterInterface
      * @throws RuntimeException         If named route does not exist
      * @throws InvalidArgumentException If required data not provided
      */
-    public function pathFor($name, array $data = [], array $queryParams = []);
+    public function pathFor($name, array $data = [], array $queryParams = []) : string;
 }

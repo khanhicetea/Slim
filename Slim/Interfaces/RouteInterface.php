@@ -36,7 +36,7 @@ interface RouteInterface
      *
      * @return array
      */
-    public function getArguments();
+    public function getArguments() : array;
 
     /**
      * Get route name
@@ -50,7 +50,7 @@ interface RouteInterface
      *
      * @return string
      */
-    public function getPattern();
+    public function getPattern() : string;
 
     /**
      * Set a route argument
